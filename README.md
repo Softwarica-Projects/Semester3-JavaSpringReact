@@ -7,7 +7,7 @@
 1. **Create MySQL database**
 
 	```bash
-	create database polling_app
+	create database pollingsystem
 	```
 
 3. **Change MySQL username and password as per your MySQL installation**
