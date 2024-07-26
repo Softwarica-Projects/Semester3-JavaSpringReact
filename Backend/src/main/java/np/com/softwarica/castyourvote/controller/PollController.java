@@ -34,7 +34,6 @@ public class PollController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> createPoll(@Valid @RequestBody PollRequestPojo pollRequest) {
         Poll poll = pollService.createPoll(pollRequest);
 

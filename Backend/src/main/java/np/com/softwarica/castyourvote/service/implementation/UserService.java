@@ -48,6 +48,13 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public Role GetUserRole(String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "username", username));
+        return user.getRoles().stream().findFirst().orElseThrow();
+    }
+
+    @Override
     public User registerUser(SignUpRequestPojo signUpRequest) throws Exception {
         if (existsByUsername(signUpRequest.getUsername())) {
             throw new Exception("Username is already taken!");

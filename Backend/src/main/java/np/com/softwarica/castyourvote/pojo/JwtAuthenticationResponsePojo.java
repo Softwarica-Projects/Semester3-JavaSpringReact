@@ -12,5 +12,5 @@ import lombok.Setter;
 public class JwtAuthenticationResponsePojo {
     private String accessToken;
     private String tokenType = "Bearer";
-
+    private String role;
 }

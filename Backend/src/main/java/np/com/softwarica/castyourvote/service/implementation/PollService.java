@@ -83,12 +83,10 @@ public class PollService implements IPollService {
         // Retrieve all polls created by the given username
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "createdAt");
         Page<Poll> polls = pollRepository.findByCreatedBy(user.getId(), pageable);
-
         if (polls.getNumberOfElements() == 0) {
             return new PagedResponsePojo<>(Collections.emptyList(), polls.getNumber(),
                     polls.getSize(), polls.getTotalElements(), polls.getTotalPages(), polls.isLast());
         }
-
         // Map Polls to PollResponses containing vote counts and poll creator details
         List<Long> pollIds = polls.map(Poll::getId).getContent();
         Map<Long, Long> choiceVoteCountMap = getChoiceVoteCountMap(pollIds);
