@@ -1,9 +1,7 @@
 package np.com.softwarica.castyourvote.entity;
 
+import lombok.*;
 import np.com.softwarica.castyourvote.entity.audit.UserDateAudit;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -15,10 +13,12 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
+@Builder
 @Getter
 @Setter
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "polls")
 public class Poll extends UserDateAudit {
     @Id

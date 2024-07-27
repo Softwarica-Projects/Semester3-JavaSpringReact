@@ -16,6 +16,7 @@ import np.com.softwarica.castyourvote.service.interfaces.IPollService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,8 +24,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+
 import java.time.Duration;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -32,14 +35,15 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
+
 @RequiredArgsConstructor
 public class PollService implements IPollService {
 
-    private final  IPollRepository pollRepository;
+    private final IPollRepository pollRepository;
 
-    private final  IVoteRepository voteRepository;
+    private final IVoteRepository voteRepository;
 
-    private final  IUserRepository userRepository;
+    private final IUserRepository userRepository;
 
     private static final Logger logger = LoggerFactory.getLogger(PollService.class);
 
@@ -229,6 +233,25 @@ public class PollService implements IPollService {
         return ModelMapper.mapPollToPollResponse(poll, choiceVotesMap, creator, vote.getChoice().getId());
     }
 
+    @Override
+    public ArrayList<PollListPojo> GetAllPolls() {
+        var pollList = pollRepository.findAll();
+        ArrayList<PollListPojo> pollListPojos = new ArrayList<>();
+        pollList.forEach(x -> {
+            pollListPojos.add(new PollListPojo(x.getId(), x.getQuestion(), x.getChoices(), x.getExpirationDateTime()));
+        });
+        return pollListPojos;
+    }
+
+    @Override
+    public PollListPojo GetPollById(Long pollId) {
+        var poll = pollRepository.findById(pollId);
+        if(poll.isEmpty()){
+            throw new ResourceNotFoundException("Poll", "id", pollId);
+        }
+        var x = poll.get();
+        return new PollListPojo(x.getId(), x.getQuestion(), x.getChoices(), x.getExpirationDateTime());
+    }
 
     private void validatePageNumberAndSize(int page, int size) {
         if (page < 0) {

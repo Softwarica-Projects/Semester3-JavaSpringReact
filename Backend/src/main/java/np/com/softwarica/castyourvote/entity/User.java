@@ -1,10 +1,7 @@
 package np.com.softwarica.castyourvote.entity;
 
+import lombok.*;
 import np.com.softwarica.castyourvote.entity.audit.DateAudit;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.annotations.NaturalId;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -18,6 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Builder
 @Table(name = "users", uniqueConstraints = {
         @UniqueConstraint(columnNames = {
             "username"

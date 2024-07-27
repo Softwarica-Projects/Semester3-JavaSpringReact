@@ -1,11 +1,10 @@
 package np.com.softwarica.castyourvote.service.interfaces;
 
 import np.com.softwarica.castyourvote.entity.Poll;
-import np.com.softwarica.castyourvote.pojo.PagedResponsePojo;
-import np.com.softwarica.castyourvote.pojo.PollRequestPojo;
-import np.com.softwarica.castyourvote.pojo.PollResponsePojo;
-import np.com.softwarica.castyourvote.pojo.VoteRequestPojo;
+import np.com.softwarica.castyourvote.pojo.*;
 import np.com.softwarica.castyourvote.service.implementation.UserDetailService;
+
+import java.util.ArrayList;
 
 
 public interface IPollService {
@@ -15,4 +14,6 @@ public interface IPollService {
     Poll createPoll(PollRequestPojo pollRequest);
     PollResponsePojo getPollById(Long pollId, UserDetailService currentUser);
     PollResponsePojo castVoteAndGetUpdatedPoll(Long pollId, VoteRequestPojo voteRequest, UserDetailService currentUser);
-    }
+    ArrayList<PollListPojo> GetAllPolls();
+    PollListPojo GetPollById(Long pollId);
+}
