@@ -4,11 +4,7 @@
 
 ## Steps to Setup the Backend
 
-1. **Create MySQL database**
-
-	```bash
-	create database pollingsystem
-	```
+1. **Create MySQL database** *pollingsystem*
 
 3. **Change MySQL username and password as per your MySQL installation**
 
