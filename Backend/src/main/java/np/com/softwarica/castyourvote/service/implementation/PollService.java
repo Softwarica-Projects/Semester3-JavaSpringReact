@@ -35,23 +35,17 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
-
 @RequiredArgsConstructor
 public class PollService implements IPollService {
 
     private final IPollRepository pollRepository;
-
     private final IVoteRepository voteRepository;
-
     private final IUserRepository userRepository;
-
     private static final Logger logger = LoggerFactory.getLogger(PollService.class);
 
     @Override
     public PagedResponsePojo<PollResponsePojo> getAllPolls(UserDetailService currentUser, int page, int size) {
         validatePageNumberAndSize(page, size);
-
-        // Retrieve Polls
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "createdAt");
         Page<Poll> polls = pollRepository.findAll(pageable);
 
@@ -59,7 +53,6 @@ public class PollService implements IPollService {
             return new PagedResponsePojo<>(Collections.emptyList(), polls.getNumber(),
                     polls.getSize(), polls.getTotalElements(), polls.getTotalPages(), polls.isLast());
         }
-
         // Map Polls to PollResponses containing vote counts and poll creator details
         List<Long> pollIds = polls.map(Poll::getId).getContent();
         Map<Long, Long> choiceVoteCountMap = getChoiceVoteCountMap(pollIds);

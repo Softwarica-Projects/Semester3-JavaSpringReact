@@ -21,10 +21,7 @@ import java.net.URI;
 @RestController
 @RequestMapping("/api/polls")
 public class PollController {
-
     private final IPollService pollService;
-
-    private static final Logger logger = LoggerFactory.getLogger(PollController.class);
 
     @GetMapping
     public PagedResponsePojo<PollResponsePojo> getPolls(@CurrentUser UserDetailService currentUser,

@@ -1,5 +1,8 @@
 package np.com.softwarica.castyourvote.repository;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import np.com.softwarica.castyourvote.entity.Choice;
 import np.com.softwarica.castyourvote.entity.Poll;
 import org.junit.Test;
@@ -16,6 +19,8 @@ import java.util.ArrayList;
 
 @DataJpaTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+
+@RequiredArgsConstructor
 public class PollRepoTest {
 
     @Autowired
